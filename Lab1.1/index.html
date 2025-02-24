@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laboratory work 1</title>
+    <style>
+      .first_paragraph-Georgia {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        color: #000;
+        font-size: 14px;
+      }
+      .second_paragraph-Verdana {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #808000;
+        font-size: 15px;
+      }
+      table {
+        width: 50%;
+        border-collapse: collapse;
+        background-image: url("./images/coast-1.jpg");
+        background-size: cover;
+        text-align: center;
+        color: white;
+        font-size: 18px;
+      }
+      th,
+      td {
+        border: 2px solid black;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>
+        Лабораторна робота 1 <br />
+        Вільхівського Назара Віталійовича <br />
+        група Б-121-22-1-ПІ
+      </h2>
+    </header>
+    <h1>Прага</h1>
+    <div class="part_one">
+      <p class="first_paragraph-Georgia">
+        Прага — столиця та найбільше місто Чехії, адміністративний центр
+        Середньочеського краю та Праги як окремого регіона, а також двох районів
+        Середньочеського краю Прага-Захід та Прага-Схід.
+      </p>
+      <p class="second_paragraph-Verdana">
+        Прага розташована в західній частині Чехії, в історичній області
+        Богемія.
+      </p>
+    </div>
+    <div class="part_two">
+      <h2>Частина 2</h2>
+      <h3>Невпорядкований список</h3>
+      <h4>5 речей, які присутні в класі:</h4>
+      <ul>
+        <li>ноутбук</li>
+        <li>комп'ютерна миша</li>
+        <li>вазон</li>
+        <li>ручка</li>
+        <li>стілець</li>
+      </ul>
+      <hr />
+      <h3>Упорядкований список</h3>
+      <h4>Розв’язок задачі: Обчислення площі прямокутника</h4>
+      <ol>
+        <li>
+          Запишемо формулу площі прямокутника: <strong>S = a × b</strong>.
+        </li>
+        <li>
+          Визначимо значення сторін <strong>a</strong> та
+          <strong>b</strong> (наприклад, a = 5 см, b = 10 см).
+        </li>
+        <li>Підставимо значення у формулу: <strong>S = 5 × 10</strong>.</li>
+        <li>Обчислимо результат: <strong>S = 50 см²</strong>.</li>
+        <li>
+          Запишемо відповідь:
+          <strong>Площа прямокутника дорівнює 50 см²</strong>.
+        </li>
+      </ol>
+      <hr />
+      <h3>Список визначень</h3>
+      <h4>Чотири визначення в області програмування:</h4>
+      <dl>
+        <dt>Kлас</dt>
+        <dd>
+          - це спеціальна конструкція, яка використовується для групування
+          пов'язаних змінних та функцій.
+        </dd>
+        <dt>Метод</dt>
+        <dd>
+          - підпрограма (процедура, функція), що використовується виключно разом
+          із класом (методи класу) або з об'єктом (методи екземпляра).
+        </dd>
+        <dt>Об'єкт</dt>
+        <dd>
+          - ключове поняття об'єктно-орієнтованих технологій проєктування та
+          програмування; втілення абстрактної моделі окремої сутності (предмету
+          або поняття), що має чітко виражене функціональне призначення в деякій
+          області, належить до визначеного класу та характеризується своїми
+          властивостями та поведінкою.
+        </dd>
+        <dt>HTML</dt>
+        <dd>
+          - стандартизована мова розмітки документів для перегляду вебсторінок у
+          браузері.
+        </dd>
+      </dl>
+      <hr />
+      <h3>Візуальне</h3>
+      <ol type="I">
+        <li>level 1</li>
+        <li>
+          <ol type="i">
+            <li>Level 1 item 1</li>
+            <li>
+              Level 1 item 2 Level 2
+              <ol type="a">
+                <li>Level 2 item 1</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <hr />
+      <h3>Гіперпосилання</h3>
+      <a href="./images/coast-1.jpg" target="_blank">Посилання на зображення</a>
+      <h3>Внутрішнє посилання</h3>
+      <a href="#page__bottom">Для нижньої частини сторінки</a>
+    </div>
+    <div class="part_three">
+      <h2>Частина 3</h2>
+      <table>
+        <tr>
+          <td>Комірка 1,1</td>
+          <td>Комірка 1,2</td>
+          <td>Комірка 1,3</td>
+        </tr>
+        <tr>
+          <td>Комірка 2,1</td>
+          <td colspan="2">Об'єднана комірка 2,2 та 2,3</td>
+        </tr>
+        <tr>
+          <td>Комірка 3,1</td>
+          <td colspan="2">Об'єднана комірка 3,2 та 3,3</td>
+        </tr>
+      </table>
+    </div>
+
+    <footer id="page__bottom">
+      <div class="part-four">
+        <h2>Частина 4</h2>
+        <h1>Карта Острова Скарбів</h1>
+
+        <img
+          src="./images/treasure-island.jpg"
+          usemap="#treasureMap"
+          alt="Карта Острова Скарбів"
+          width="800"
+        />
+
+        <map name="treasureMap">
+          <!-- Область для інформації про Луїса Стівенсона -->
+          <area
+            shape="rect"
+            coords="50,50,200,150"
+            href="https://uk.wikipedia.org/wiki/%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82_%D0%9B%D1%83%D1%97%D1%81_%D0%A1%D1%82%D1%96%D0%B2%D0%B5%D0%BD%D1%81%D0%BE%D0%BD"
+            alt="Луїс Стівенсон"
+            target="_blank"
+          />
+
+          <!-- Область для персонажа Джима Гокінса -->
+          <area
+            shape="circle"
+            coords="400,200,100"
+            href="https://uk.wikipedia.org/wiki/%D0%94%D0%B6%D0%B8%D0%BC_%D0%93%D0%BE%D0%BA%D1%96%D0%BD%D1%81"
+            alt="Джим Гокінс"
+            target="_blank"
+          />
+
+          <!-- Область для персонажа Джона Сільвера -->
+          <area
+            shape="rect"
+            coords="600,200,850,850"
+            href="https://uk.wikipedia.org/wiki/%D0%94%D0%B6%D0%BE%D0%BD_%D0%A1%D1%96%D0%BB%D1%8C%D0%B2%D0%B5%D1%80"
+            alt="Джон Сільвер"
+            target="_blank"
+          />
+        </map>
+      </div>
+    </footer>
+  </body>
+</html>

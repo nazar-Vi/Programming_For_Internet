@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!DOCTYPE library SYSTEM "library.dtd">
+<?xml-stylesheet type="text/css" href="./library.css"?>
+
+<library>
+    <subscriber>
+        <name>Ivan Petrenko</name>
+        <address>Kyiv, Shevchenko street, 10</address>
+        <passport>AB123456</passport>
+    </subscriber>
+    <subscriber>
+        <name>Mariya Kovalenko</name>
+        <address>Lviv, Franko street, 25</address>
+        <passport>CD654321</passport>
+    </subscriber>
+</library>

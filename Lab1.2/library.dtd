@@ -1,0 +1,5 @@
+<!ELEMENT library (subscriber+)>
+<!ELEMENT subscriber (name, address, passport)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT passport (#PCDATA)>
