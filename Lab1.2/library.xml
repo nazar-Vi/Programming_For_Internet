@@ -1,16 +1,43 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE library SYSTEM "library.dtd">
 <?xml-stylesheet type="text/css" href="./library.css"?>
+<?xml-stylesheet type="text/xsl" href="library.xsl"?>
+
 
 <library>
     <subscriber>
-        <name>Ivan Petrenko</name>
-        <address>Kyiv, Shevchenko street, 10</address>
+        <name>Іван Петренко</name>
+        <address>Київ, вулиця Шевченка, 10</address>
         <passport>AB123456</passport>
     </subscriber>
     <subscriber>
-        <name>Mariya Kovalenko</name>
-        <address>Lviv, Franko street, 25</address>
+        <name>Марія Коваленко</name>
+        <address>Львів, вулиця Івана Франка, 25</address>
         <passport>CD654321</passport>
+    </subscriber>
+    <subscriber>
+        <name>Дмитро Коршун</name>
+        <address>Біла Церква, вулиця Шевченка, 55</address>
+        <passport>EF123987</passport>
+    </subscriber>
+    <subscriber>
+        <name>Антон Сомко</name>
+        <address>Житомир, вулиця Козацька, 105</address>
+        <passport>AC789456</passport>
+    </subscriber>
+    <subscriber>
+        <name>Олена Непота</name>
+        <address>Вінниця, вулиця Зоряна, 47</address>
+        <passport>FB192837</passport>
+    </subscriber>
+    <subscriber>
+        <name>Людмила Нестайко</name>
+        <address>Полтава, вулиця Дослідна, 87</address>
+        <passport>DB122837</passport>
+    </subscriber>
+    <subscriber>
+        <name>Олександр Остапчук</name>
+        <address>Ніжин, вулиця Богуна, 20</address>
+        <passport>FB132837</passport>
     </subscriber>
 </library>
