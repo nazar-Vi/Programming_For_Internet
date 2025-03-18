@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Форма запису до бібліотеки</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+      }
+
+      form {
+        background: white;
+        padding: 20px;
+        width: 350px;
+        margin: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      label,
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      input[type="text"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: all 0.3s;
+      }
+
+      fieldset {
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: left;
+      }
+
+      legend {
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      input[type="radio"] {
+        width: auto;
+        display: inline;
+        margin-right: 5px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 5px;
+        transition: all 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+
+      button:active {
+        transform: scale(1);
+      }
+
+      .output {
+        width: 350px;
+        margin: auto;
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Запис до бібліотеки</h2>
+
+    <form id="libraryForm">
+      <label for="surname">Прізвище:</label>
+      <input type="text" id="surname" required />
+
+      <label for="address">Адреса:</label>
+      <input type="text" id="address" required />
+
+      <label for="passport">Номер паспорта:</label>
+      <input type="text" id="passport" required />
+
+      <fieldset>
+        <legend>Вибір нового читача</legend>
+        <label
+          ><input type="radio" name="new_reader" value="yes" required /> Новий
+          читач</label
+        >
+        <label
+          ><input type="radio" name="new_reader" value="no" /> Постійний
+          читач</label
+        >
+      </fieldset>
+
+      <button type="button" onclick="saveData()">Зареєструвати</button>
+    </form>
+
+    <div class="output">
+      <h3>Збережені дані</h3>
+      <pre id="output"></pre>
+      <button onclick="loadData()">Завантажити дані</button>
+      <button onclick="deleteData()">Видалити всі записи</button>
+    </div>
+
+    <script>
+      function saveData() {
+        let surname = document.getElementById("surname").value;
+        let address = document.getElementById("address").value;
+        let passport = document.getElementById("passport").value;
+        let newReader = document.querySelector(
+          'input[name="new_reader"]:checked'
+        ).value;
+
+        if (!surname || !address || !passport || !newReader) {
+          alert("Будь ласка, заповніть всі поля!");
+          return;
+        }
+
+        let record = { surname, address, passport, newReader };
+
+        let existingData = localStorage.getItem("libraryData");
+        let dataArray = existingData ? JSON.parse(existingData) : [];
+
+        dataArray.push(record);
+        localStorage.setItem("libraryData", JSON.stringify(dataArray));
+
+        alert("Запис збережено!");
+        document.getElementById("libraryForm").reset();
+        loadData();
+      }
+
+      function loadData() {
+        let storedData = localStorage.getItem("libraryData");
+        if (storedData) {
+          document.getElementById("output").textContent = JSON.stringify(
+            JSON.parse(storedData),
+            null,
+            2
+          );
+        } else {
+          document.getElementById("output").textContent =
+            "Немає збережених записів.";
+        }
+      }
+
+      function deleteData() {
+        if (confirm("Ви дійсно хочете видалити всі записи?")) {
+          localStorage.removeItem("libraryData");
+          document.getElementById("output").textContent =
+            "Немає збережених записів.";
+          alert("Усі записи видалено!");
+        }
+      }
+
+      // Завантаження даних при відкритті сторінки
+      window.onload = loadData;
+    </script>
+  </body>
+</html>

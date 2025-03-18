@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xforms="http://www.w3.org/2002/xforms">
+    <h:head>
+        <h:title>Форма запису до бібліотеки</h:title>
+    </h:head>
+    <h:body>
+        <xforms:model>
+            <xforms:instance id="library-form">
+                <library>
+                    <surname />
+                    <address />
+                    <passport />
+                    <new_reader />
+                </library>
+            </xforms:instance>
+        </xforms:model>
+
+        <h:h2>Запис до бібліотеки</h:h2>
+        <xforms:input ref="surname">
+            <xforms:label>Прізвище:</xforms:label>
+        </xforms:input>
+
+        <xforms:input ref="address">
+            <xforms:label>Адреса:</xforms:label>
+        </xforms:input>
+
+        <xforms:input ref="passport">
+            <xforms:label>Номер паспорта:</xforms:label>
+        </xforms:input>
+
+        <xforms:select1 ref="new_reader">
+            <xforms:label>Вибір нового читача</xforms:label>
+            <xforms:item>
+                <xforms:label>Новий читач</xforms:label>
+                <xforms:value>yes</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Постійний читач</xforms:label>
+                <xforms:value>no</xforms:value>
+            </xforms:item>
+        </xforms:select1>
+
+        <xforms:submit>
+            <xforms:label>Зареєструвати</xforms:label>
+        </xforms:submit>
+
+    </h:body>
+</h:html>
