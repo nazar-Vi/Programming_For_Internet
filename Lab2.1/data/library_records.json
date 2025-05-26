@@ -1,0 +1,29 @@
+[
+  {
+    "id": "a63d49eb-0cea-45e2-8a13-0a550b1539a6",
+    "lastName": "Вільхівський",
+    "address": "abc01",
+    "passportSeries": "AB",
+    "passportNumber": "123456",
+    "readerType": "new",
+    "createdAt": "2025-05-26T12:45:27.383Z"
+  },
+  {
+    "id": "759ff895-8e8d-4b48-8ee4-f2d55f5ff2eb",
+    "lastName": "Сомко",
+    "address": "abc02",
+    "passportSeries": "AB",
+    "passportNumber": "123457",
+    "readerType": "student",
+    "createdAt": "2025-05-26T12:46:58.123Z"
+  },
+  {
+    "id": "c9ecca77-87f2-4bc8-88a1-a4f3273e0af4",
+    "lastName": "Равлюк",
+    "address": "abc03",
+    "passportSeries": "AB",
+    "passportNumber": "987654",
+    "readerType": "regular",
+    "createdAt": "2025-05-26T12:48:30.707Z"
+  }
+]

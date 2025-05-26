@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Система реєстрації читачів бібліотеки</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        color: white;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .main-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+      }
+
+      .form-card,
+      .records-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .form-card:hover,
+      .records-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-title {
+        font-size: 1.5em;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .form-group input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input[type="text"]:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .passport-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .radio-group {
+        margin-bottom: 20px;
+      }
+
+      .radio-group legend {
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .radio-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border: 2px solid #eee;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .radio-option:hover {
+        border-color: #667eea;
+        background-color: #f8f9ff;
+      }
+
+      .radio-option input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+      }
+
+      .radio-option.selected {
+        border-color: #667eea;
+        background-color: #f0f2ff;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-danger {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+      }
+
+      .btn-danger:hover {
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+      }
+
+      .btn-success:hover {
+        box-shadow: 0 5px 15px rgba(81, 207, 102, 0.4);
+      }
+
+      .records-list {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      .record-item {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #667eea;
+        transition: all 0.3s ease;
+      }
+
+      .record-item:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+      }
+
+      .record-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .record-name {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .record-type {
+        background: #667eea;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+
+      .record-details {
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .record-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        z-index: 1000;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+      }
+
+      .message.show {
+        transform: translateX(0);
+      }
+
+      .message.success {
+        background: #51cf66;
+      }
+
+      .message.error {
+        background: #ff6b6b;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .export-section {
+        text-align: center;
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          grid-template-columns: 1fr;
+        }
+
+        .passport-group {
+          grid-template-columns: 1fr;
+        }
+
+        .header h1 {
+          font-size: 2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>📚 Система реєстрації читачів бібліотеки</h1>
+        <p>Управління записами читачів за допомогою REST API</p>
+      </div>
+
+      <div class="main-content">
+        <!-- Форма додавання/редагування -->
+        <div class="form-card">
+          <h2 class="card-title" id="form-title">➕ Додати нового читача</h2>
+          <form id="readerForm">
+            <input type="hidden" id="editId" value="" />
+
+            <div class="form-group">
+              <label for="lastName">Прізвище:</label>
+              <input type="text" id="lastName" name="lastName" required />
+            </div>
+
+            <div class="form-group">
+              <label for="address">Адреса:</label>
+              <input type="text" id="address" name="address" required />
+            </div>
+
+            <div class="form-group">
+              <fieldset class="passport-group">
+                <legend>Паспортні дані:</legend>
+                <div>
+                  <label for="passportSeries">Серія паспорта:</label>
+                  <input
+                    type="text"
+                    id="passportSeries"
+                    name="passportSeries"
+                    placeholder="AB"
+                    maxlength="2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="passportNumber">Номер паспорта:</label>
+                  <input
+                    type="text"
+                    id="passportNumber"
+                    name="passportNumber"
+                    placeholder="123456"
+                    maxlength="6"
+                    required
+                  />
+                </div>
+              </fieldset>
+            </div>
+
+            <fieldset class="radio-group">
+              <legend>Тип читача:</legend>
+              <div class="radio-options">
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="newReader"
+                    name="readerType"
+                    value="new"
+                    required
+                  />
+                  <label for="newReader">🆕 Новий читач</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="regularReader"
+                    name="readerType"
+                    value="regular"
+                  />
+                  <label for="regularReader">📖 Постійний читач</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="studentReader"
+                    name="readerType"
+                    value="student"
+                  />
+                  <label for="studentReader">🎓 Студент</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="seniorReader"
+                    name="readerType"
+                    value="senior"
+                  />
+                  <label for="seniorReader">👴 Пенсіонер</label>
+                </div>
+              </div>
+            </fieldset>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <button type="submit" class="btn btn-success" id="submitBtn">
+                ✅ Зберегти читача
+              </button>
+              <button
+                type="button"
+                class="btn"
+                id="cancelBtn"
+                style="display: none"
+              >
+                ❌ Скасувати
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Список записів -->
+        <div class="records-card">
+          <h2 class="card-title">📋 Список читачів</h2>
+          <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Завантаження...</p>
+          </div>
+          <div id="recordsList" class="records-list"></div>
+        </div>
+      </div>
+
+      <!-- Секція експорту -->
+      <div class="export-section">
+        <h3>📤 Експорт даних</h3>
+        <p>Завантажити дані у різних форматах</p>
+        <br />
+        <button class="btn" onclick="downloadJSON()">
+          📄 Завантажити JSON
+        </button>
+        <button class="btn" onclick="downloadXML()">📝 Завантажити XML</button>
+      </div>
+    </div>
+
+    <!-- Повідомлення -->
+    <div id="message" class="message"></div>
+
+    <script>
+      const API_BASE = "http://localhost:3000/api";
+      let currentEditId = null;
+
+      // Ініціалізація
+      document.addEventListener("DOMContentLoaded", function () {
+        loadRecords();
+        initializeEventListeners();
+      });
+
+      function initializeEventListeners() {
+        // Форма
+        document
+          .getElementById("readerForm")
+          .addEventListener("submit", handleFormSubmit);
+        document
+          .getElementById("cancelBtn")
+          .addEventListener("click", cancelEdit);
+
+        // Радіо кнопки
+        document
+          .querySelectorAll('input[name="readerType"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", updateRadioStyles);
+          });
+
+        // Валідація паспортних даних
+        document
+          .getElementById("passportSeries")
+          .addEventListener("input", function (e) {
+            e.target.value = e.target.value
+              .toUpperCase()
+              .replace(/[^A-Z]/g, "");
+          });
+
+        document
+          .getElementById("passportNumber")
+          .addEventListener("input", function (e) {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+          });
+      }
+
+      function updateRadioStyles() {
+        document.querySelectorAll(".radio-option").forEach((option) => {
+          const radio = option.querySelector('input[type="radio"]');
+          if (radio.checked) {
+            option.classList.add("selected");
+          } else {
+            option.classList.remove("selected");
+          }
+        });
+      }
+
+      async function handleFormSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const data = {
+          lastName: formData.get("lastName").trim(),
+          address: formData.get("address").trim(),
+          passportSeries: formData.get("passportSeries").trim(),
+          passportNumber: formData.get("passportNumber").trim(),
+          readerType: formData.get("readerType"),
+        };
+
+        // Валідація
+        if (
+          !data.lastName ||
+          !data.address ||
+          !data.passportSeries ||
+          !data.passportNumber ||
+          !data.readerType
+        ) {
+          showMessage("Будь ласка, заповніть всі поля!", "error");
+          return;
+        }
+
+        if (data.passportSeries.length !== 2) {
+          showMessage("Серія паспорта повинна містити 2 літери!", "error");
+          return;
+        }
+
+        if (data.passportNumber.length !== 6) {
+          showMessage("Номер паспорта повинен містити 6 цифр!", "error");
+          return;
+        }
+
+        try {
+          const editId = document.getElementById("editId").value;
+          let response;
+
+          if (editId) {
+            // Оновлення
+            response = await fetch(`${API_BASE}/records/${editId}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+          } else {
+            // Створення
+            response = await fetch(`${API_BASE}/records`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+          }
+
+          const result = await response.json();
+
+          if (result.success) {
+            showMessage(result.message, "success");
+            resetForm();
+            loadRecords();
+          } else {
+            showMessage(result.message, "error");
+          }
+        } catch (error) {
+          console.error("Помилка:", error);
+          showMessage("Помилка підключення до сервера!", "error");
+        }
+      }
+
+      async function loadRecords() {
+        const loading = document.getElementById("loading");
+        const recordsList = document.getElementById("recordsList");
+
+        loading.style.display = "block";
+
+        try {
+          const response = await fetch(`${API_BASE}/records`);
+          const result = await response.json();
+
+          if (result.success) {
+            displayRecords(result.data);
+          } else {
+            showMessage("Помилка завантаження записів!", "error");
+          }
+        } catch (error) {
+          console.error("Помилка:", error);
+          showMessage("Помилка підключення до сервера!", "error");
+          recordsList.innerHTML =
+            '<p style="text-align: center; color: #666;">Не вдалося завантажити записи</p>';
+        } finally {
+          loading.style.display = "none";
+        }
+      }
+
+      function displayRecords(records) {
+        const recordsList = document.getElementById("recordsList");
+
+        if (records.length === 0) {
+          recordsList.innerHTML =
+            '<p style="text-align: center; color: #666;">Немає записів для відображення</p>';
+          return;
+        }
+
+        const recordsHTML = records
+          .map((record) => {
+            const readerTypeLabels = {
+              new: "🆕 Новий читач",
+              regular: "📖 Постійний читач",
+              student: "🎓 Студент",
+              senior: "👴 Пенсіонер",
+            };
+
+            const createdDate = new Date(record.createdAt).toLocaleDateString(
+              "uk-UA"
+            );
+
+            return `
+                    <div class="record-item">
+                        <div class="record-header">
+                            <div class="record-name">${escapeHtml(
+                              record.lastName
+                            )}</div>
+                            <div class="record-type">${
+                              readerTypeLabels[record.readerType] ||
+                              record.readerType
+                            }</div>
+                        </div>
+                        <div class="record-details">
+                            <strong>Адреса:</strong> ${escapeHtml(
+                              record.address
+                            )}<br>
+                            <strong>Паспорт:</strong> ${escapeHtml(
+                              record.passportSeries
+                            )} ${escapeHtml(record.passportNumber)}<br>
+                            <strong>Дата реєстрації:</strong> ${createdDate}
+                        </div>
+                        <div class="record-actions">
+                            <button class="btn" onclick="editRecord('${
+                              record.id
+                            }')">✏️ Редагувати</button>
+                            <button class="btn btn-danger" onclick="deleteRecord('${
+                              record.id
+                            }')">🗑️ Видалити</button>
+                        </div>
+                    </div>
+                `;
+          })
+          .join("");
+
+        recordsList.innerHTML = recordsHTML;
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      async function editRecord(id) {
+        try {
+          const response = await fetch(`${API_BASE}/records/${id}`);
+          const result = await response.json();
+
+          if (result.success) {
+            const record = result.data;
+
+            // Заповнення форми
+            document.getElementById("editId").value = record.id;
+            document.getElementById("lastName").value = record.lastName;
+            document.getElementById("address").value = record.address;
+            document.getElementById("passportSeries").value =
+              record.passportSeries;
+            document.getElementById("passportNumber").value =
+              record.passportNumber;
+            document.querySelector(
+              `input[name="readerType"][value="${record.readerType}"]`
+            ).checked = true;
+
+            // Оновлення інтерфейсу
+            document.getElementById("form-title").textContent =
+              "✏️ Редагувати читача";
+            document.getElementById("submitBtn").textContent =
+              "💾 Оновити читача";
+            document.getElementById("cancelBtn").style.display = "inline-block";
+
+            updateRadioStyles();
+            currentEditId = id;
+
+            // Прокрутка до форми
+            document.querySelector(".form-card").scrollIntoView({
+              behavior: "smooth",
+            });
+          } else {
+            showMessage(
+              "Помилка завантаження запису для редагування!",
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Помилка:", error);
+          showMessage("Помилка підключення до сервера!", "error");
+        }
+      }
+
+      async function deleteRecord(id) {
+        if (!confirm("Ви впевнені, що хочете видалити цей запис?")) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/records/${id}`, {
+            method: "DELETE",
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showMessage(result.message, "success");
+            loadRecords();
+
+            // Якщо видаляємо запис, який редагується, скасувати редагування
+            if (currentEditId === id) {
+              cancelEdit();
+            }
+          } else {
+            showMessage(result.message, "error");
+          }
+        } catch (error) {
+          console.error("Помилка:", error);
+          showMessage("Помилка підключення до сервера!", "error");
+        }
+      }
+
+      function cancelEdit() {
+        resetForm();
+      }
+
+      function resetForm() {
+        document.getElementById("readerForm").reset();
+        document.getElementById("editId").value = "";
+        document.getElementById("form-title").textContent =
+          "➕ Додати нового читача";
+        document.getElementById("submitBtn").textContent = "✅ Зберегти читача";
+        document.getElementById("cancelBtn").style.display = "none";
+        currentEditId = null;
+
+        // Очистити стилі радіо кнопок
+        document.querySelectorAll(".radio-option").forEach((option) => {
+          option.classList.remove("selected");
+        });
+      }
+
+      function showMessage(text, type) {
+        const messageEl = document.getElementById("message");
+        messageEl.textContent = text;
+        messageEl.className = `message ${type}`;
+        messageEl.classList.add("show");
+
+        setTimeout(() => {
+          messageEl.classList.remove("show");
+        }, 4000);
+      }
+
+      async function downloadJSON() {
+        try {
+          const response = await fetch(`${API_BASE}/records`);
+          const result = await response.json();
+
+          if (result.success) {
+            const dataStr = JSON.stringify(result.data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(dataBlob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `library_records_${
+              new Date().toISOString().split("T")[0]
+            }.json`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            showMessage("JSON файл завантажено!", "success");
+          } else {
+            showMessage("Помилка завантаження даних!", "error");
+          }
+        } catch (error) {
+          console.error("Помилка:", error);
+          showMessage("Помилка підключення до сервера!", "error");
+        }
+      }
+
+      async function downloadXML() {
+        try {
+          const response = await fetch(`${API_BASE}/records/export/xml`);
+
+          if (response.ok) {
+            const xmlData = await response.text();
+            const dataBlob = new Blob([xmlData], { type: "application/xml" });
+            const url = URL.createObjectURL(dataBlob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `library_records_${
+              new Date().toISOString().split("T")[0]
+            }.xml`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            showMessage("XML файл завантажено!", "success");
+          } else {
+            showMessage("Помилка завантаження даних!", "error");
+          }
+        } catch (error) {
+          console.error("Помилка:", error);
+          showMessage("Помилка підключення до сервера!", "error");
+        }
+      }
+
+      // Автоматичне оновлення списку кожні 30 секунд
+      setInterval(loadRecords, 30000);
+    </script>
+  </body>
+</html>

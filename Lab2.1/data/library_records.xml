@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library_records>
+  <record>
+    <id>a63d49eb-0cea-45e2-8a13-0a550b1539a6</id>
+    <lastName>Вільхівський</lastName>
+    <address>abc01</address>
+    <passportSeries>AB</passportSeries>
+    <passportNumber>123456</passportNumber>
+    <readerType>new</readerType>
+    <createdAt>2025-05-26T12:45:27.383Z</createdAt>
+  </record>
+  <record>
+    <id>759ff895-8e8d-4b48-8ee4-f2d55f5ff2eb</id>
+    <lastName>Сомко</lastName>
+    <address>abc02</address>
+    <passportSeries>AB</passportSeries>
+    <passportNumber>123457</passportNumber>
+    <readerType>student</readerType>
+    <createdAt>2025-05-26T12:46:58.123Z</createdAt>
+  </record>
+  <record>
+    <id>c9ecca77-87f2-4bc8-88a1-a4f3273e0af4</id>
+    <lastName>Равлюк</lastName>
+    <address>abc03</address>
+    <passportSeries>AB</passportSeries>
+    <passportNumber>987654</passportNumber>
+    <readerType>regular</readerType>
+    <createdAt>2025-05-26T12:48:30.707Z</createdAt>
+  </record>
+</library_records>
