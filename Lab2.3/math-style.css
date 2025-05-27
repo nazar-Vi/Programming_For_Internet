@@ -1,0 +1,71 @@
+body {
+  background-color: aliceblue;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.center {
+  margin: auto;
+  width: fit-content;
+}
+
+form div {
+  margin: 10px;
+}
+
+input[type="text"] {
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+
+button {
+  font-size: 18px;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+#keyboard {
+  margin: auto;
+  border: 2px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+#b1 {
+  background-color: lightcoral;
+}
+#b2 {
+  background-color: lightgreen;
+}
+#b3 {
+  background-color: lightskyblue;
+}
+#b4 {
+  background-color: lightpink;
+}
+#b5 {
+  background-color: lightgoldenrodyellow;
+}
+#b6 {
+  background-color: lightcyan;
+}
+#b7 {
+  background-color: lavender;
+}
+#b8 {
+  background-color: palevioletred;
+}
+#b9 {
+  background-color: peachpuff;
+}
+#b0 {
+  background-color: lightgray;
+}
+#bs {
+  background-color: orange;
+  color: white;
+}
